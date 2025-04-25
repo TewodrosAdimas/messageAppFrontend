@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Optional: Add base styles if needed */
 body {
   @apply font-sans antialiased text-gray-800;
 }
