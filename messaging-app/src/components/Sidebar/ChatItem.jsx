@@ -1,31 +1,51 @@
+// src/components/Sidebar/ChatItem.jsx
 import React from 'react';
+import Avatar from '../UI/Avatar';
 
-export default function ChatItem({ chat, onSelect, isSelected }) {
+// Simple date formatter for demo
+const formatTimestamp = (timestamp) => {
+    if (!timestamp) return '';
+    // In a real app, use a library like date-fns or moment
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffTime = Math.abs(now - date);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 0) {
+        // Today: return time HH:MM
+        return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+    } else if (diffDays === 1) {
+        return 'yesterday';
+    } else if (diffDays < 7) {
+        // Within a week: return day name
+        return date.toLocaleDateString('en-US', { weekday: 'long' });
+    } else {
+        // Older: return date
+        return date.toLocaleDateString('en-US');
+    }
+}
+
+
+const ChatItem = ({ chat, isSelected, onClick }) => {
+  const formattedTime = formatTimestamp(chat.timestamp);
+
   return (
     <div
-      onClick={() => onSelect(chat)}
-      className={`flex items-center p-3 rounded-lg cursor-pointer transition-colors ${
-        isSelected ? 'bg-blue-100' : 'hover:bg-gray-100'
+      className={`flex items-center p-3 hover:bg-gray-100 cursor-pointer border-l-4 ${
+        isSelected ? 'border-blue-500 bg-blue-50' : 'border-transparent'
       }`}
+      onClick={onClick}
     >
-      <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-white font-semibold mr-3">
-        {/* Use avatar image if available, fallback to initials */}
-        {chat.avatar ? (
-          <img
-            src={chat.avatar}
-            alt={chat.name}
-            className="w-10 h-10 rounded-full object-cover"
-          />
-        ) : (
-          chat.name.charAt(0).toUpperCase()
-        )}
-      </div>
-      <div className="flex-1">
-        <p className="font-medium text-sm">{chat.name}</p>
-        <p className="text-xs text-gray-500 truncate">
-          {chat.lastMessage || 'No messages yet'}
-        </p>
+      <Avatar name={chat.name} />
+      <div className="ml-3 flex-grow min-w-0"> {/* min-w-0 prevents text overflow issues */}
+        <div className="flex justify-between items-center">
+          <span className="font-semibold truncate text-sm text-gray-800">{chat.name}</span>
+          <span className="text-xs text-gray-500 ml-2 flex-shrink-0">{formattedTime}</span>
+        </div>
+        <p className="text-sm text-gray-600 truncate">{chat.lastMessage}</p>
       </div>
     </div>
   );
-}
+};
+
+export default ChatItem;

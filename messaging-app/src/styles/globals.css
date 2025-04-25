@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optional: Add base styles if needed */
+body {
+  @apply font-sans antialiased text-gray-800;
+}
+
+/* Style scrollbars for a cleaner look (optional, WebKit specific) */
+::-webkit-scrollbar {
+  width: 6px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track color */
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cccccc; /* Handle color */
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #aaaaaa; /* Handle color on hover */
+}

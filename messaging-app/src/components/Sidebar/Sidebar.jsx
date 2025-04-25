@@ -1,17 +1,33 @@
+// src/components/Sidebar/Sidebar.jsx
+import React from 'react';
 import ChatItem from './ChatItem';
 
-const dummyChats = [
-  { id: 1, name: 'Emma Johnson', message: 'Sure, that sounds good!', time: '10:40' },
-  { id: 2, name: 'Liam Smith', message: 'Thank you!', time: '09:25' },
-];
-
-export default function Sidebar() {
+const Sidebar = ({ chats, selectedChatId, onSelectChat }) => {
   return (
-    <div className="w-72 border-r bg-white p-4">
-      <h2 className="text-xl font-bold mb-4">Chats</h2>
-      {dummyChats.map(chat => (
-        <ChatItem key={chat.id} chat={chat} />
-      ))}
+    <div className="w-full md:w-1/3 lg:w-1/4 border-r border-gray-200 bg-white flex flex-col h-full">
+      {/* Header */}
+      <div className="p-4 border-b border-gray-200 flex-shrink-0">
+        <h2 className="text-xl font-semibold text-gray-800">Chats</h2>
+        {/* Optional: Add search bar or new chat button here */}
+      </div>
+
+      {/* Chat List */}
+      <div className="overflow-y-auto flex-grow">
+        {chats.length > 0 ? (
+          chats.map((chat) => (
+            <ChatItem
+              key={chat.id}
+              chat={chat}
+              isSelected={chat.id === selectedChatId}
+              onClick={() => onSelectChat(chat.id)}
+            />
+          ))
+        ) : (
+          <p className="p-4 text-gray-500">No chats yet.</p>
+        )}
+      </div>
     </div>
   );
-}
+};
+
+export default Sidebar;
