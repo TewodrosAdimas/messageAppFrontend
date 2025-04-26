@@ -2,7 +2,6 @@
 
 This repository contains the frontend codebase for a modern messaging application, built using React.js and styled with Tailwind CSS. It features a clean, responsive layout inspired by common chat interfaces.
 
-*(Note: Currently, this frontend operates using mock data. Backend integration for real-time communication and data persistence is required for full functionality.)*
 
 ## Screenshot
 
